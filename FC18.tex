@@ -1,0 +1,357 @@
+%%% Reusable Start
+\documentclass[a4paper,4pt]{article}
+\usepackage[UTF8]{ctex}
+\usepackage{geometry}
+\usepackage{titlesec}
+\usepackage{indentfirst}
+\usepackage{graphicx} %use graph format
+\usepackage{subfigure}
+\usepackage{epstopdf}
+\usepackage{hyperref}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{enumerate}
+\usepackage{enumitem} 
+\usepackage{bookmark}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{bigstrut}
+\usepackage[backend=bibtex]{biblatex}
+\usepackage{pgfplots}
+\usepackage{pgfplotstable}
+\usepackage{siunitx}
+\usepackage{datetime}
+%插入中文日期
+\renewcommand{\today}{\number\year 年 \number\month 月 \number\day 日}
+%% for inserting code
+\usepackage{listings}
+\usepackage{xcolor}
+\definecolor{mygreen}{rgb}{0.3,0.7,0}  
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}  
+\definecolor{myblue}{rgb}{0.4,0.7,1}
+\definecolor{mywhite}{rgb}{0.9,0.9,0.9}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+\definecolor{mybackcolor}{RGB}{62,62,62}
+\definecolor{myIdt}{rgb}{0.8,0.6,1}
+\lstset{ %  
+  backgroundcolor=\color{mybackcolor},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}  
+  basicstyle=\small\ttfamily\color{mywhite},        % the size of the fonts that are used for the code  
+  breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace  
+	breaklines=true,                 % sets automatic line breaking  
+  captionpos=bl,                    % sets the caption-position to bottom  
+  commentstyle=\color{mygreen},    % comment style  
+  %deletekeywords={...},            % if you want to delete keywords from the given language  
+  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code  
+  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8  
+  %frame=single,                    % adds a frame around the code  
+  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)  
+  keywordstyle=\color{myblue},       % keyword style  
+  %language=Python,                 % the language of the code  
+  morekeywords={*,...},            % if you want to add more keywords to the set  
+  numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)  
+  numbersep=-15pt,                   % how far the line-numbers are from the code  
+  numberstyle=\small\color{mygray}\ttfamily, % the style that is used for the line-numbers  
+  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))  
+  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'  
+  showstringspaces=false,          % underline spaces within strings only  
+  showtabs=false,                  % show tabs within strings adding particular underscores  
+  stepnumber=1,                    % the step between two line-numbers. If it's 1, each line will be numbered  
+  stringstyle=\color{orange},     % string literal style  
+  tabsize=2,                       % sets default tabsize to 2 spaces  
+  %title=myPython.py                   % show the filename of files included with \lstinputlisting; also try caption instead of title  
+	rulesepcolor=\color{red!20!green!20!blue!20},
+	identifierstyle=\color{myIdt},
+	} 
+%% end of code style
+
+
+
+\begin{document}
+
+%第二种封面
+\begin{titlepage}
+	\heiti
+	\vspace*{64pt}
+	\begin{center}
+		\fontsize{43pt}{0} \textbf{FC18参赛规则}\\
+		\vspace*{36pt}
+		\fontsize{43pt}{0}{内测版}\\
+		\vspace*{280pt}
+		\Large
+		\rmfamily
+		\begin{tabular}{lr} %表格，lr表示左对齐|右对齐
+			\textbf{开发者}   & 自动化系科协竞赛部 \\
+			\textbf{比赛网址} & ？                 \\
+			\textbf{？}       & ？                 \\
+			\textbf{更新日期} & \today             \\
+		\end{tabular}
+	\end{center}
+\end{titlepage}
+
+
+\tableofcontents%目录
+\newpage%换页
+
+FC18为四方势力在地图上进行回合制对战的策略游戏，玩家需要力求攻占其他玩家的塔、占领尽可能大的领地、消灭或俘虏其他玩家的兵团以获得胜利。每个玩家需要编写AI，根据裁判程序提供的场地信息，决策己方势力在该回合的行动，并返回给裁判程序，以控制己方的行为。
+\section{游戏说明}
+作为塔防游戏，每个势力在开始时各在一角拥有一座塔，塔周围的一定区域是自己的领地。玩家需要利用塔的生产力，完成生产兵团或升级塔的任务。生产出的作战兵团可以在场上移动，攻击其他势力的塔或兵团（减少他们的生命值）；生产出的工程兵团则可以完成修改地形、修理塔（恢复塔的生命值）的任务。其中，塔的等级越高，就会拥有更高的生产力、战斗力、生命值上限。塔也可以攻击敌方的兵团，如果塔内有己方兵团驻扎，则塔的战斗力会更强。
+
+\begin{figure}[htbp]   %用htbp表示插入位置自动排版
+	\centering
+	\includegraphics[width=5.5 in]{01开始.jpg}
+	\caption{游戏场地示意图：开始状态}
+	\label{jpg:示例图片1}
+\end{figure}
+
+\section{你需要做什么}
+所有玩家的AI都可以从Info中读取当前场上各方势力的兵团、塔的信息，并设计算法，并按照统一的接口CommandList给裁判程序回传命令，操控己方势力；在游戏中，选手只需要在ai.cpp文件中的void player\_ai(Info\& info) {  }函数中填写自己的代码，并最终只需要提交ai.cpp文件。
+\begin{lstlisting}[language={C++},title={添加命令有关代码}]  %插入代码块
+    //【FC18】命令列表
+    class CommandList
+    {
+    public:
+      void addCommand(commandType _FC18type, initializer_list<int> _FC18parameters);
+      void removeCommand(int n);  //【FC18】移除第n条命令
+      vector<Command> getCommand() { return m_commands; }  //【FC18】获取所有命令
+    };
+\end{lstlisting}
+
+\section{角色说明}
+游戏中有以下角色：塔$Tower$，作战兵团（分为战士$Warrior$、弓箭手$Archer$、法师），工程兵团（分为建设者$Builder$、开拓者$Extender$）。
+\subsection{塔}
+\subsubsection{概述}
+塔是在地图上固定的，具有对一定范围内（距离为2及以内，即5*5的方形内）敌对势力塔或兵团自动攻击能力的建筑，每个势力最初时拥有1座塔，每个地图方格内最多有1座塔，每个势力最多拥有10座塔。当某势力没有塔时，该势力将被判为失败。
+\begin{figure}[htbp]   %用htbp表示插入位置自动排版
+	\centering
+	\includegraphics[width=1.5 in]{距离.jpg.png}
+	\caption{距离计算示意图}
+	\label{jpg:示例图片2}
+\end{figure}
+塔有以下属性：
+\begin{enumerate}[fullwidth, itemindent=2em, label=(\arabic*)]
+	\item 等级$N$。
+	\item 生产力$W_N$。
+	\item 等级生命力上限$HP_N$，当前生命力$hp$。
+	\item 等级战斗力$F_N$，实际战斗力$f$。%TODO
+	      \begin{lstlisting}[language={C++},title={防御塔结构体}]  %插入代码块
+  	//@@@【FC18】防御塔结构体，有需要的信息再加
+  	
+  	struct TowerInfo {
+  		
+  		TTowerID      ID;   //防御塔ID
+  		TPlayerID     ownerID;  //所属玩家ID
+  		TPoint        position;    //位置
+  		TProductPoint productPoint;  //生产力
+  		TProductPoint productConsume;  //当前生产任务尚需完成的剩余生产力值
+  		TBattlePoint  battlePoint;   //战斗力
+  		THealthPoint  healthPoint;   //生命值
+  		TLevel        level;       //等级
+  		productType   pdtType;    //当前生产任务类型
+  	};
+  \end{lstlisting}
+
+\end{enumerate}
+\subsubsection{具体说明}
+1)塔的等级$N$为1-8的正整数，从等级$N$升级到$N+1$需要消耗的生产力值为$40 \cdot N$。\par
+2)塔会根据自身的等级状况获得一个生产力数值$W_N$，代表其一个回合能产生的生产力，具体的数据如表\ref{塔等级表}所示。生产力$W_N$每回合更新，如果该回合没有使用生产力，下一回合不会累积。在同一时刻，塔可以选择一种生产任务（包括生产战士、生产弓箭手、生产法师、生产建造者、生产开拓者、升级塔自身）每一种任务需要消耗不同的生产力点数，具体情况见表\ref{塔生产}。兵团生产任务完成之后，塔所在的方格将立即生成一个对应兵团。防御塔所在方格内允许存在多个兵团，不必遵循同一单元格仅能存在一个兵团的限制。在struct\ TowerInfo中，可以访问到该塔当前未完成的生产任务productType\ pdtType;和该任务有待完成的工作余量TProductPoint\ productConsume;\par
+3)等级生命力上限$HP_N$仅与等级正相关，具体的数据如表\ref{塔等级表}所示。实际生命力$hp$会受到进攻而减小（具体结算方式如式\ref{hp1}和式\ref{hp2}所示）、由于建设者的维护而增加。当实际生命力$hp$被进攻方降低至0以下时，对方获得5分的击杀分，我方丧失该塔，塔等级下降4级：等级下降后，若不足1级，则塔消失，该单位恢复原来地形；若塔尚存在，则降级后的塔主权归对方所有（塔被俘虏）。\par
+4）实际战斗力$f$为战斗中的战斗力。$f$是$F_N$、当前生命值$hp$、等级生命值上限$HP_N$、兵团驻扎情况带来战斗力增益$f_c$（具体增益规则如表\ref{兵团}所示）的函数。具体计算方法如下：
+
+\begin{equation}
+	f = F_N \cdot \frac{hp}{HP_N} + \Sigma f_b\label{f}
+\end{equation}
+兵团攻击塔时，生命值的结算方式如下：
+\begin{equation}
+	\begin{aligned}
+		hp_{\text{塔}}   & \ -= & \ 30 \cdot k_c \cdot e^{0.04(f_{\text{兵}}-f_{\text{塔}})} & ;                       \\
+		hp_{\text{兵团}} & \ -= & \ 28 \cdot e^{0.04(f_{\text{塔}}-f_{\text{兵}})}           & , \text{当兵团非弓箭手} \\
+		hp_{\text{兵团}} & \ -= & \ 0                                                        & , \text{当兵团为弓箭手} \\
+	\end{aligned}
+	\label{hp1}
+\end{equation}
+塔只能攻击距离为2及以内的兵团。塔攻击兵团时，生命值的结算方式如下：
+\begin{equation}
+	\begin{aligned}
+		hp_{\text{兵团}} & \ -=\ 30 \cdot e^{0.04(f_{\text{塔}}-f_{\text{兵}})}, \text{对于所有兵团种类} \\
+		hp_{\text{塔}}   & \ -=\ 0                                                                       \\
+	\end{aligned}
+	\label{hp2}
+\end{equation}
+
+
+
+
+你可以为塔添加以下操作：
+\begin{enumerate}[fullwidth, itemindent=2em, label=(\arabic*)]
+	\item 生产：在命令中指定命令类型为塔命令，塔操作类型为生产，塔ID，塔生产任务类型（ <enum  productType> ）。
+	\item 攻击：在命令中指定命令类型为塔类型，塔操作类型为攻击，塔ID，塔的攻击对象序号，即可指定某一做塔攻击某一个对象。
+\end{enumerate}
+另外，请注意：
+\begin{enumerate}[fullwidth, itemindent=2em, label=(\arabic*)]
+	\item 每回合，每座塔最多可以添加一个操作。如果该回合玩家给一个塔添加了多个操作，则第二个及以后的操作会被自动忽略，且占用50个操作的余额（相当于填了废志愿），所以请不要添加大于一个操作。
+	\item 如果你的操作是无效操作，则也不会起任何作用。无效操作包括试图攻击自己的对象、试图攻击超出攻击范围的对象、不存在对应序号的对象等。
+	\item 如果上一回合塔选择了生产，但未完成该生产任务，本回合选择攻击，则上一回合的生产进度会被保留，这样在下一回合假如继续添加生产该任务的命令，会在上一回合基础上继续生产。
+	\item 若防御塔的某个生产任务尚未完成，玩家又指定了新任务，则未完成的生产任务的完成度将被缓存起来，然后进行新的任务。之后再选择有一定完成度的任务的时候，只需要完成未完成的部分，即完成剩余的生产力消耗值。即如果上一回合塔选择了生产任务A，但未完成该生产任务A，本回合选择生产任务B，则上一回合的生产进度也会被保留，这样在下一回合假如继续添加生产任务A的命令，会在上一回合基础上继续生产。但是，由于接口所限，你只能通过TowerInfo访问到最近一次尚未完成的任务类型和余量，所以我们推荐一旦开始一种生产任务，中途不要切换别的生产任务（虽然你仍可以正常地生产它们）。
+\end{enumerate}
+\subsection{作战兵团}
+在同一个时间，同一个地图方格（防御塔所在方格除外）内的作战兵团、工程兵团数量各自不能超过1个。当某个方格内同时存在一个势力的一个作战兵团和工程兵团，则称工程兵团被作战兵团护卫。任何战斗，都优先与作战兵团结算。若在某次战斗中，该护卫队中的作战兵团阵亡。此时进行一次判定，若敌方作战兵团也在作战中阵亡，则护卫队中的工程兵团仍属于原来的玩家；若敌方作战兵团未阵亡，则护卫队中的工程兵团将被敌方俘虏，所属玩家变更为敌方。\par
+\subsubsection{概述}
+兵团有三个种类：战士（近战单位）、弓箭手（远程单位）、法师（高级进攻单位）。
+其中，弓箭手可以远程轰炸其他单位且自身不受伤害。法师具有较高的移动力。\par
+作战兵团有以下属性：
+\begin{enumerate}[fullwidth, itemindent=2em, label=(\arabic*)]
+	\item 行动力$M_c$。
+	\item 满血战斗力$F_c$，实际战斗力$f$。
+	\item 生命力上限$HP_c$，当前生命力$hp$。
+	\item 攻击距离$d_c$。%TODO
+	\item 所属玩家ID。
+\end{enumerate}
+\begin{lstlisting}[language={C++},title={防御塔结构体}]  %插入代码块
+		//@@@【FC18】兵团结构体，有需要的信息再加
+		struct CorpsInfo
+		{
+			//不需要，如果不存在就不录入信息了bool	exist;		//是否存在
+			TPoint	pos;		//兵团坐标
+			int		level;		//兵团等级
+			TCorpsID		ID;	//兵团ID
+			THealthPoint	HealthPoint;	//生命值
+			TBuildPoint		BuildPoint;		//劳动力
+			TPlayerID		owner;			//所属玩家ID
+			corpsType       type;           //兵团种类
+			TMovePoint      movePoint;      //行动力
+			battleCorpsType		m_BattleType;	//战斗兵用
+			constructCorpsType	m_BuildType;	//建造兵用
+		};
+	\end{lstlisting}
+\subsubsection{具体说明}
+1）行动力$M_c$表示兵团在某一回合的进行行动的能力，具体见表\ref{兵团}。兵团从一个单元格移动到另一个相邻单元格（即上下左右四个方向）将消耗一定行动力。（取决于单元格地形情况，计算方式为：一次移动经过的两个单元格的行动力消耗取平均值，并向上取整，具体见表\ref{地形}）值得注意的是，如果移动后行动力至少还有1点则则还能发起进攻，而一旦选择进攻将消耗所有行动力。行动力在新回合开始将重置。\par
+2）生命力上限$HP_c$仅与兵团种类有关，具体见表\ref{兵团}。实际生命力$hp$会受到进攻而减小（具体结算方式如式\ref{hp2}所示），直至实际生命力$hp$被进攻方降低至0以下时，兵团死亡，对方获得5分的击杀分。\par
+3）实际战斗力$f$为战斗中的战斗力。$f$是满血战斗力$F_c$、当前生命值$hp$、生命值上限$HP_c$、兵团所处地形情况带来战斗力增益$f_t$（具体增益规则如表\ref{地形}所示）的函数。具体计算方法如下：
+
+\begin{equation}
+	f = F_c \cdot \frac{hp}{HP_c} + f_t\label{f2}
+\end{equation}
+兵团只能攻击在攻击范围内的对象，不同兵团的攻击距离$d_c$如表\ref{兵团}所示。兵团B受到兵团A攻击时，生命值的结算方式如下：
+\begin{equation}
+	\begin{aligned}
+		hp_{B} & \ -= & \ 30 \cdot e^{0.04(f_{A}-f_{B})} & ;                        \\
+		hp_{A} & \ -= & \ 28 \cdot e^{0.04(f_{B}-f_{A})} & , \text{当兵团A非弓箭手} \\
+		hp_{A} & \ -= & \ 0                              & , \text{当兵团A为弓箭手} \\
+	\end{aligned}
+	\label{hp2}
+\end{equation}
+作战兵团能进行的操作有：在地图上移动、停在某一方格内驻扎、驻扎己方势力的塔、对敌方军团发起进攻、对敌方防御塔发起进攻。
+去掉兵团整编、兵团原地驻扎的命令（兵团驻扎到塔的指令还保留着）@TODO%TODO
+\subsection{工程兵团}
+工程兵团分为：建造者、开拓者。建造者用来进行特定的工程建造，而开拓者则用于修建新的防御塔。\par
+工程兵团有以下属性：
+\begin{enumerate}[fullwidth, itemindent=2em, label=(\arabic*)]
+	\item 行动力$M_c$。
+	\item 劳动力$B$。
+	\item 所属玩家ID。
+\end{enumerate}
+
+%枚举
+
+
+\begin{table}[htbp]
+	\centering
+	\caption{塔等级表}
+	\label{塔等级表}%
+	\begin{tabular}{c|c|c|c}
+		\hline
+		等级$N$ & 生产力$W_N$ & 等级战斗力$F_N$ & 等级生命力上限$HP_N$ \bigstrut \\
+		\hline
+		1       & 10          & 25              & 100 \bigstrut                  \\
+		\hline
+		2       & 15          & 27              & 120 \bigstrut                  \\
+		\hline
+		3       & 20          & 29              & 140 \bigstrut                  \\
+		\hline
+		4       & 25          & 32              & 160 \bigstrut                  \\
+		\hline
+		5       & 30          & 35              & 180 \bigstrut                  \\
+		\hline
+		6       & 35          & 38              & 200 \bigstrut                  \\
+		\hline
+		7       & 40          & 41              & 220 \bigstrut                  \\
+		\hline
+		8       & 45          & 45              & 240 \bigstrut                  \\
+		\hline
+	\end{tabular}%
+
+\end{table}%
+
+
+
+
+% Table generated by Excel2LaTeX from sheet 'Sheet1'
+\begin{table}[htbp]
+	\centering
+	\caption{塔生产任务表}
+	\begin{tabular}{c|c}
+		\hline
+		生产任务           & 所需的生产力值 \bigstrut \\
+		\hline
+		战士               & 40 \bigstrut             \\
+		\hline
+		弓箭手             & 60 \bigstrut             \\
+		\hline
+		法师               & 100 \bigstrut            \\
+		\hline
+		建造者             & 40 \bigstrut             \\
+		\hline
+		开拓者             & 40 \bigstrut             \\
+		\hline
+		升级（N升级到N+1） & N*40 \bigstrut           \\
+		\hline
+	\end{tabular}%
+	\label{塔生产}%
+\end{table}%
+
+% Table generated by Excel2LaTeX from sheet 'Sheet1'
+\begin{table}[htbp]
+	\centering
+	\caption{兵团参数表}
+	\begin{tabular}{c|c|c|c}
+		\hline
+		兵种Crops           & 战士 & 弓箭手 & 法师 \bigstrut \\
+		\hline
+		战斗力增益系数$f_c$ & 2    & 2      & 4 \bigstrut    \\
+		\hline
+		攻城系数$k_c$       & 0.4  & 0.7    & 0.5 \bigstrut  \\
+		\hline
+		攻击距离$d_c$       & 1    & 2      & 1 \bigstrut    \\
+		\hline
+		行动力$M_c$         & 2    & 2      & 4 \bigstrut    \\
+		\hline
+		生命力上限$HP_c$    & 60   & 50     & 70 \bigstrut   \\
+		\hline
+		满血战斗力$F_c$     & 36   & 30     & 44 \bigstrut   \\
+		\hline
+	\end{tabular}%
+	\label{兵团}%
+\end{table}%
+
+% Table generated by Excel2LaTeX from sheet 'Sheet1'
+\begin{table}[htbp]
+	\centering
+	\caption{地形参数表}
+	\begin{tabular}{c|c|c|c|c|}
+		\hline
+		地形                & 平原 & 山地 & 森林 & 沼泽 \bigstrut \\
+		\hline
+		地形战斗力增益$f_t$ & 0    & 5    & 3    & -3 \bigstrut   \\
+		\hline
+		地形行动力消耗$m_t$ & 2    & 4    & 3    & 4 \bigstrut    \\
+		\hline
+	\end{tabular}%
+	\label{地形}%
+\end{table}%
+
+
+
+\end{document}
