@@ -315,7 +315,7 @@ FC18为四方势力在地图上进行回合制对战的策略游戏，玩家需�
 
 说明：所有兵团添加进攻命令之后，之后添加的移动或其他进攻命令均会被忽略。在单个回合中，对于单个作战兵团，仅能添加：若干移动指令（也可以不移动）+一个攻击命令或驻扎己方塔的命令（二选一。添加攻击命令需要还有剩余>0的行动力，而添加驻扎命令则不需要。如果移动命令完成后，行动力为0，则该回合无法进攻，但可以驻扎。如果输入的命令无效，例如不在攻击范围内、移动超出场地范围、攻击命令下达时没有剩余行动力等，无效命令会被直接忽略。）
 
-\subsection{工程兵团：建造者}
+\subsubsection{工程兵团：建造者}
 移动：info.myCommandList.addCommmand(corpsCommand, {CMove, 本兵团ID, 方向编号（Cup / Cdown / Cleft / Cright）})\par
 修复防御塔：info.myCommandList.addCommmand(corpsCommand, {CRepair, 本兵团ID})\par
 修改地形：info.myCommandList.addCommmand(corpsCommand, {CChangeTerrain, 本兵团ID, 目标地形(见下方枚举类型)})\par
