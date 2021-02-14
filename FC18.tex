@@ -290,8 +290,8 @@ FC18为四方势力在地图上进行回合制对战的策略游戏，玩家需�
 \subsection{玩家添加命令示例}
 玩家通过info.myCommandList.addCommmand(<命令类型>,<参数列表:参数1,参数2...>)添加命令。
 \subsubsection{塔}
-防御塔攻击兵团:info.myCommandList.addCommmand(towerCommand, {TAttackCorps, 本塔ID, 目标兵团ID})\par
-防御塔设定生产任务:info.myCommandList.addCommmand(towerCommand, {TProduct, 本塔ID, 生产任务类型(见下方枚举类型)})\par
+防御塔攻击兵团:info.myCommandList.addCommmand(towerCommand, \{TAttackCorps, 本塔ID, 目标兵团ID\})\par
+防御塔设定生产任务:info.myCommandList.addCommmand(towerCommand, \{TProduct, 本塔ID, 生产任务类型(见下方枚举类型)\})\par
 \begin{lstlisting}[language={C++},title={生产任务类型}]  %插入代码块
 		//【FC18】塔的生产任务类型（P表示product）
 		enum productType
@@ -445,6 +445,7 @@ FC18为四方势力在地图上进行回合制对战的策略游戏，玩家需�
 	\end{tabular}%
 	\label{地形}%
 \end{table}%
-\section{具体问题@TODO}
-1）结束立即生效->俘虏、新建塔、修复生命值、兵团移动；玩家本回合结束生效->修改地形、新建兵团\par
+
+
+
 \end{document}
