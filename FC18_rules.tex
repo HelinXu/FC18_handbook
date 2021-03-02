@@ -125,7 +125,8 @@ FC18为四方势力在地图上进行回合制对战的策略游戏，玩家需�
   \item 工程兵团：分为建设者和开拓者。建设者具有行动力和劳动力属性，可以移动、修复己方防御塔或修改地形；开拓者具有行动力，可以移动并建立新的防御塔。
   \item 计分规则：选手各自操控防御塔和兵团，击杀敌方的防御塔或兵团，获得击杀分；同时应尽可能多生产兵团、建造高等级的防御塔，在游戏结束时获得兵团和防御塔的结算得分。
 \end{enumerate}
-另外，请注意：攻击会对双方生命值造成损失，其中生命值弱的一方损失更大。如果攻击的发起者生命值更弱，则攻击发起者受到的损失很可能更大。
+\par
+
 \subsection{防御塔}
 每个势力最初时拥有1座防御塔，最多拥有10座防御塔。当某势力没有防御塔时，该势力将被判为失败。
 每座防御塔周围地图会附加己方的占有属性值，该属性值见表\ref{领地}；在某一方格上占有值最高的一方会占领该领地。
@@ -159,12 +160,10 @@ FC18为四方势力在地图上进行回合制对战的策略游戏，玩家需�
   \item 等级战斗力$F_N$，实际战斗力$f$。实际战斗力$f$正比于$F_N$，正比于相对生命值$\frac{hp}{HP_N}$，并会额外附加兵团驻扎情况带来战斗力增益$f_c$（具体增益规则如表\ref{兵团}所示）。
   \item 攻击距离$d_c$。
 \end{enumerate}
+\par
 
-你可以为防御塔添加以下操作：
-\begin{enumerate}[fullwidth, itemindent=2em, label=(\arabic*)]
-  \item 生产：在命令中指定命令类型为防御塔命令，防御塔操作类型为生产，防御塔ID，塔生产任务类型（ <enum  productType> ）。
-  \item 攻击：在命令中指定命令类型为防御塔类型，防御塔操作类型为攻击，防御塔ID，防御塔的攻击对象序号，即可指定某一做防御塔攻击某一个对象。
-\end{enumerate}
+你可以为防御塔添加生产或攻击命令。
+
 
 \subsection{作战兵团}
 在同一个时间，同一个地图方格（防御塔所在方格除外）内的作战兵团、工程兵团数量各自不能超过1个。作战兵团受到攻击时，生命值减少直至兵团死亡；工程兵团受到攻击时，会直接被对方俘虏。\par
@@ -178,6 +177,7 @@ FC18为四方势力在地图上进行回合制对战的策略游戏，玩家需�
   \item 攻击距离$d_c$。兵团只能攻击在攻击范围内的对象。
   \item 所属玩家ID。
 \end{enumerate}
+\par
 作战兵团能进行的操作有：在地图上移动、驻扎己方势力的防御塔、对敌方军团发起进攻、对敌方防御塔发起进攻。
 
 
@@ -196,31 +196,43 @@ FC18为四方势力在地图上进行回合制对战的策略游戏，玩家需�
 
 \section{你需要做什么}
 \subsection{概述}
-所有玩家的AI都可以从Info中读取当前场上各方势力的兵团、防御塔的信息，并设计算法，并按照统一的接口CommandList给裁判程序回传命令，操控己方势力；在游戏中，选手只需要在ai.cpp文件中的void player\_ai(Info\& info) \{ \   \}函数中填写自己的代码，并最终只需要提交ai.cpp文件。
+所有玩家的AI都可以从\texttt{Info}中读取当前场上各方势力的兵团、防御塔的信息，并设计算法，并按照统一的接口\texttt{CommandList}给裁判程序回传命令，操控己方势力；在游戏中，选手只需要在\texttt{ai.cpp}文件中的\texttt{void player\_ai(Info\& info) \{ \   \}}函数中填写自己的代码，并最终只需要提交\texttt{ai.cpp}文件。
 
 \subsection{玩家添加命令示例}
-玩家通过info.myCommandList.addCommmand(<命令类型>,<参数列表:参数1,参数2...>)添加命令。玩家每回合给防御塔和兵团添加的命令总数量不得超过50个，超出数量限制的命令会被忽略。另外规定：防御塔最多10座，作战兵团最多10个，工程兵团最多10个。如果己方兵团已经有10个，此时俘虏了一个敌方兵团，则敌方兵团直接消失，而不是转换为我方兵团。防御塔同理。
+玩家每回合给防御塔和兵团添加的命令总数量不得超过50个，超出数量限制的命令会被忽略。另外规定：防御塔最多10座，作战兵团最多10个，工程兵团最多10个。如果己方兵团已经有10个，此时俘虏了一个敌方兵团，则敌方兵团直接消失，而不是转换为我方兵团。防御塔同理。
 \subsubsection{防御塔}
-防御塔攻击兵团:info.myCommandList.addCommmand(towerCommand, \{TAttackCorps, 本防御塔ID, 目标兵团ID\})\par
-防御塔设定生产任务:info.myCommandList.addCommmand(towerCommand, \{TProduct, 本防御塔ID, 生产任务类型(见下方枚举类型)\})\par
+\begin{lstlisting}[language={C++}]  %插入代码块
+      
+      info.myCommandList.addCommmand(towerCommand, {TAttackCorps, 本防御塔ID, 目标兵团ID})  //防御塔攻击兵团
+      info.myCommandList.addCommmand(towerCommand, {TProduct, 本防御塔ID, 生产任务类型(见下方枚举类型)})  //防御塔设定生产任务
+\end{lstlisting}
 说明：单个回合中，对每座防御塔，只能添加一个命令。多余命令会被忽略。
 
 \subsubsection{作战兵团}
-移动：info.myCommandList.addCommmand(corpsCommand, \{CMove, 本兵团ID, 方向（Cup / Cdown / Cleft / Cright）\})\par
-兵团攻击兵团：info.myCommandList.addCommmand(corpsCommand, \{CAttackCorps, 本兵团ID, 目标兵团ID\})\par
-兵团攻击防御塔：info.myCommandList.addCommmand(corpsCommand, \{CAttackTower, 本兵团ID, 目标防御塔ID\})\par
-兵团驻扎在己方防御塔：info.myCommandList.addCommmand(corpsCommand, \{CStationTower, 本兵团ID \}) \par
-
+\begin{lstlisting}[language={C++}]  %插入代码块
+      
+      info.myCommandList.addCommmand(corpsCommand, {CMove, 本兵团ID, 方向(Cup / Cdown / Cleft / Cright)})  //移动
+      info.myCommandList.addCommmand(corpsCommand, {CAttackCorps, 本兵团ID, 目标兵团ID})  //兵团攻击兵团
+      info.myCommandList.addCommmand(corpsCommand, {CAttackTower, 本兵团ID, 目标防御塔ID})  //兵团攻击防御塔
+      info.myCommandList.addCommmand(corpsCommand, {CStationTower, 本兵团ID })  //兵团驻扎在己方防御塔
+\end{lstlisting}
 说明：在单个回合中，对于单个作战兵团，仅能添加：若干移动指令（也可以不移动）+一个攻击命令或驻扎己方防御塔的命令（二选一）。添加攻击命令要求剩余的行动力>0，而添加驻扎命令则不必要求行动力>0，即如果移动命令完成后，行动力为0，则该回合无法进攻，但可以驻扎。如果输入的命令无效（不在攻击范围内、移动超出场地范围、攻击命令下达时没有剩余行动力等），会被直接忽略。
 
 \subsubsection{工程兵团：建设者}
-移动：info.myCommandList.addCommmand(corpsCommand, \{CMove, 本兵团ID, 方向编号（Cup / Cdown / Cleft / Cright）\})\par
-修复防御塔：info.myCommandList.addCommmand(corpsCommand, \{CRepair, 本兵团ID\})\par
-修改地形：info.myCommandList.addCommmand(corpsCommand, \{CChangeTerrain, 本兵团ID, 目标地形(见下方枚举类型)\})\par
+\begin{lstlisting}[language={C++}]  %插入代码块
+          
+      info.myCommandList.addCommmand(corpsCommand, {CMove, 本兵团ID, 方向(Cup / Cdown / Cleft / Cright)})  //移动
+      info.myCommandList.addCommmand(corpsCommand, {CRepair, 本兵团ID})  //修复防御塔
+      info.myCommandList.addCommmand(corpsCommand, {CChangeTerrain, 本兵团ID, 目标地形(枚举类型)})  //修改地形
+\end{lstlisting}
 说明：仅支持地形“平原-森林”之间的相互转换。在单个回合中，对于单个建设者，仅能添加：若干移动指令（也可以不移动）+修复防御塔/修改地形（二选一。此时需要还有剩余>0的行动力。如果移动命令完成后，行动力为0，则该回合无法修复/修改。如果输入的命令无效，无效命令会被直接忽略。）修改地形需要在该回合结束之后统一起作用。
+
 \subsubsection{工程兵团：开拓者}
-移动：info.myCommandList.addCommmand(corpsCommand, \{CMove, 本兵团ID, 方向（Cup / Cdown / Cleft / Cright）\})\par
-建立新防御塔：info.myCommandList.addCommmand(corpsCommand, \{ CBuild, 本兵团ID \})\par
+\begin{lstlisting}[language={C++}]  %插入代码块
+          
+      info.myCommandList.addCommmand(corpsCommand, {CMove, 本兵团ID, 方向(Cup / Cdown / Cleft / Cright)})  //移动
+      info.myCommandList.addCommmand(corpsCommand, { CBuild, 本兵团ID })  //建立新防御塔
+\end{lstlisting}
 说明：在单个回合中，对于单个开拓者，仅能添加：若干移动指令（也可以不移动）+建立新防御塔（此时需要还有剩余>0的行动力。如果移动命令完成后，行动力为0，则该回合无法新建防御塔。一旦执行了新建防御塔命令后，开拓者即消失。建立新防御塔的条件：该方格是己方领地，该方格尚未建立防御塔。）新建的防御塔需要从下一回合开始可以起作用。
 
 %枚举
@@ -267,7 +279,7 @@ FC18为四方势力在地图上进行回合制对战的策略游戏，玩家需�
   \end{aligned}
   \label{hp2}
 \end{equation}\par
-
+请注意：攻击会对双方生命值造成损失，其中生命值弱的一方损失更大。如果攻击的发起者生命值更弱，则攻击发起者受到的损失很可能更大。
 
 \begin{table}[htbp]
   \centering
