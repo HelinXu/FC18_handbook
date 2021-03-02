@@ -80,7 +80,7 @@
     \vspace*{20pt}
     \fontsize{20pt}{0} \textbf{清华大学自动化系第十八届新生C语言大赛}\\
     \vspace*{20pt}
-    \fontsize{20pt}{0} \textbf{参赛手册}\\
+    \fontsize{20pt}{0} \textbf{参赛手册（内测\today）}\\
     \vspace*{280pt}
     \normalsize
     \rmfamily
@@ -120,12 +120,12 @@ FC18为四方势力在地图上进行回合制对战的策略游戏，玩家需�
 游戏中角色的基本操作包括：运动（塔不可以运动，各种兵团均可运动），进攻（塔进攻兵团，作战兵团进攻兵团，作战兵团进攻塔），建设（塔生产各种兵团/升级自身，工程兵团-建设者修改地形，工程兵团-建设者修复塔，工程兵团-开拓者新建防御塔）。
 \begin{enumerate}[fullwidth, itemindent=2em, label=(\arabic*)]
   \item 场地和地形：在 15 * 15 的方格地图上，分布了平原、山地、森林、沼泽、道路五种地形。四方势力在场地上修建防御塔、生产并操作若干种兵团。
-  \item 防御塔：共分8级，具有生命力、战斗力属性，能生产己方兵团、攻击敌方兵团。防御塔的等级越高，就会拥有更高的生产力、战斗力、生命力；如果防御塔内有己方兵团驻扎，则防御塔的战斗力会更强。
-  \item 作战兵团：分为战士、弓箭手、法师三种，具有行动力、战斗力、生命力属性，能移动、攻击敌方兵团或防御塔。
-  \item 工程兵团：分为建造者和开拓者。建造者具有行动力和劳动力属性，可以移动、修复己方防御塔或修改地形；开拓者具有行动力，可以移动并建立新的防御塔。
+  \item 防御塔：共分8级，具有生命值、战斗力属性，能生产己方兵团、攻击敌方兵团。防御塔的等级越高，就会拥有更高的生产力、战斗力、生命值；如果防御塔内有己方兵团驻扎，则防御塔的战斗力会更强。
+  \item 作战兵团：分为战士、弓箭手、法师三种，具有行动力、战斗力、生命值属性，能移动、攻击敌方兵团或防御塔。
+  \item 工程兵团：分为建设者和开拓者。建设者具有行动力和劳动力属性，可以移动、修复己方防御塔或修改地形；开拓者具有行动力，可以移动并建立新的防御塔。
   \item 计分规则：选手各自操控防御塔和兵团，击杀敌方的防御塔或兵团，获得击杀分；同时应尽可能多生产兵团、建造高等级的防御塔，在游戏结束时获得兵团和防御塔的结算得分。
 \end{enumerate}
-另外，请注意：攻击会对双方生命力造成损失，其中生命力弱的一方损失更大。如果攻击的发起者生命力更弱，则攻击发起者受到的损失很可能更大。
+另外，请注意：攻击会对双方生命值造成损失，其中生命值弱的一方损失更大。如果攻击的发起者生命值更弱，则攻击发起者受到的损失很可能更大。
 \subsection{防御塔}
 每个势力最初时拥有1座防御塔，最多拥有10座防御塔。当某势力没有防御塔时，该势力将被判为失败。
 每座防御塔周围地图会附加己方的占有属性值，该属性值见表\ref{领地}；在某一方格上占有值最高的一方会占领该领地。
@@ -154,8 +154,8 @@ FC18为四方势力在地图上进行回合制对战的策略游戏，玩家需�
 \begin{enumerate}[fullwidth, itemindent=2em, label=(\arabic*)]
   \item 所属玩家ID。
   \item 等级$N$。等级越高，相关属性越好。具体的数据如表\ref{塔等级表}所示。
-  \item 生产力$W_N$。为每回合可用的生产力，可用于生产战士、弓箭手、法师、建造者、开拓者，或升级防御塔自身。具体见表\ref{塔生产}。
-  \item 等级生命力上限$HP_N$，当前生命力$hp$。等级生命力上限$HP_N$仅与等级正相关，实际生命力$hp$会受到进攻而减小，由于建设者的维护而增加。实际生命力$hp$与等级生命力上限$HP_N$的比值决定了实际战斗力，实际生命力较弱的塔的实际战斗力也很弱。
+  \item 生产力$W_N$。为每回合可用的生产力，可用于生产战士、弓箭手、法师、建设者、开拓者，或升级防御塔自身。具体见表\ref{塔生产}。
+  \item 等级生命值上限$HP_N$，当前生命值$hp$。等级生命值上限$HP_N$仅与等级正相关，实际生命值$hp$会受到进攻而减小，由于建设者的维护而增加。实际生命值$hp$与等级生命值上限$HP_N$的比值决定了实际战斗力，实际生命值较弱的塔的实际战斗力也很弱。
   \item 等级战斗力$F_N$，实际战斗力$f$。实际战斗力$f$正比于$F_N$，正比于相对生命值$\frac{hp}{HP_N}$，并会额外附加兵团驻扎情况带来战斗力增益$f_c$（具体增益规则如表\ref{兵团}所示）。
   \item 攻击距离$d_c$。
 \end{enumerate}
@@ -168,14 +168,13 @@ FC18为四方势力在地图上进行回合制对战的策略游戏，玩家需�
 
 \subsection{作战兵团}
 在同一个时间，同一个地图方格（防御塔所在方格除外）内的作战兵团、工程兵团数量各自不能超过1个。作战兵团受到攻击时，生命值减少直至兵团死亡；工程兵团受到攻击时，会直接被对方俘虏。\par
-\subsubsection{概述}
 兵团有三个种类：战士（近战单位）、弓箭手（远程单位）、法师（高级进攻单位）。
 其中，弓箭手可以远程轰炸其他单位且自身不受伤害。法师具有较高的移动力。\par
 作战兵团有以下属性：
 \begin{enumerate}[fullwidth, itemindent=2em, label=(\arabic*)]
   \item 行动力$M_c$。具体见表\ref{兵团}。兵团从一个单元格移动到另一个相邻单元格（即上下左右四个方向）将消耗一定行动力，地形和行动力共同决定一回合中，一个兵团能运动多远。
   \item 满血战斗力$F_c$，实际战斗力$f$。与塔类似。
-  \item 生命力上限$HP_c$，当前生命力$hp$。与塔类似。
+  \item 生命值上限$HP_c$，当前生命值$hp$。与塔类似。
   \item 攻击距离$d_c$。兵团只能攻击在攻击范围内的对象。
   \item 所属玩家ID。
 \end{enumerate}
@@ -183,17 +182,46 @@ FC18为四方势力在地图上进行回合制对战的策略游戏，玩家需�
 
 
 \subsection{工程兵团}
-工程兵团分为：建造者、开拓者。建造者用来进行特定的工程建造，而开拓者则用于修建新的防御塔。工程兵团是脆弱的功能性单位。在工程兵团没有受到作战兵团的护卫时，任何敌方作战兵团对其的进攻操作，会直接将其俘虏。俘虏时，直接将所属玩家更改为发起该次进攻的作战兵团的所属玩家，本回合就可以直接操控它。\par
-工程兵团与作战兵团共用 CorpsInfo 结构体。其中，兵团坐标、兵团ID、行动力$M_c$、所属玩家ID为共有属性；生命值$HP$、战斗兵兵种为作战兵团属性；工程兵兵种为工程兵团属性。\par
-1）行动力$M_c$表示兵团在某一回合的进行行动的能力，具体见表\ref{兵团}。在移动后，建造者、开拓者的行动力至少为1的情况下才能进行建造的操作。且一旦进行建造的操作，行动力都会被清空，直到下一个回合才会重置。\par
-\subsubsection{建造者}
-开拓者有关参数为行动力$M_c$，劳动力$B$和玩家所属ID。\par
-2）劳动力$B$是建造者特有的属性值，表示能够进行工程建造的次数。建造者的劳动力大小初始值为3。每回合可以消耗劳动力，对所在的单元格进行某项工程建设。建造者发起操作后，建造者扣除一点劳动力。若劳动力为0，则该建造者单位立刻消失（阻塞赋值）。\par %TODO
-3）建造者可以进行地形修改（只能实现平原-森林的互换）和防御塔维修（单次修理将恢复防御塔该等级最大生命值的1/3（向下取整））两种操作，两种操作各自需要1点劳动力消耗。发起地形修改操作时，建造者必须位于欲修改地形的方格上。发起防御塔维修操作时，建造者必须位于欲维修的防御塔的方格上。地形修改是我方小回合所有命令输入结束统一修改（相当于数电非阻塞赋值），而生命值修复则是立刻进行（相当于数电阻塞赋值），修复后当回合之后防御塔的命令可以用新的生命值。
+工程兵团分为：建设者、开拓者。工程兵团所处单元格没有己方作战兵团护卫时，任何敌方作战兵团对其的进攻操作，会直接将其俘虏。\par
+
+\subsubsection{建设者}
+开拓者有关参数为行动力$M_c$（同作战兵团），劳动力$B$和玩家所属ID。其中，劳动力$B$是建设者特有的属性值。建设者的劳动力大小初始值为3，表示其能进行三次工程建造。\par %TODO
+建设者可以进行地形修改（只能实现平原-森林的互换）和防御塔维修（单次修理将恢复防御塔该等级最大生命值的1/3（向下取整））两种操作，两种操作各自需要1点劳动力消耗。发起操作时，建设者必须先运动到对应方格上。
 \subsubsection{开拓者}
 开拓者有关参数为行动力$M_c$和玩家所属ID。\par
-4）开拓者可以进行防御塔建造的工作。在开拓者被生产出来时，生产其的防御塔等级下降1（本来为1则不再下降）。开拓者可以在己方领土的任一无防御塔的方格上进行防御塔建造，发起建造操作时必须位于目标单元格上。建造操作是立即完成的，且会使得开拓者单位立刻消失。
+已有的防御塔每次生产一个开拓者，等级下降1（本来为1则不再下降），开拓者可以在己方领地上一次性地建造一座新的防御塔建造。注意：必须运动到己方领地才能建造，且建造后开拓者即消失。
 
+
+
+
+\section{你需要做什么}
+\subsection{概述}
+所有玩家的AI都可以从Info中读取当前场上各方势力的兵团、防御塔的信息，并设计算法，并按照统一的接口CommandList给裁判程序回传命令，操控己方势力；在游戏中，选手只需要在ai.cpp文件中的void player\_ai(Info\& info) \{ \   \}函数中填写自己的代码，并最终只需要提交ai.cpp文件。
+
+\subsection{玩家添加命令示例}
+玩家通过info.myCommandList.addCommmand(<命令类型>,<参数列表:参数1,参数2...>)添加命令。玩家每回合给防御塔和兵团添加的命令总数量不得超过50个，超出数量限制的命令会被忽略。另外规定：防御塔最多10座，作战兵团最多10个，工程兵团最多10个。如果己方兵团已经有10个，此时俘虏了一个敌方兵团，则敌方兵团直接消失，而不是转换为我方兵团。防御塔同理。
+\subsubsection{防御塔}
+防御塔攻击兵团:info.myCommandList.addCommmand(towerCommand, \{TAttackCorps, 本防御塔ID, 目标兵团ID\})\par
+防御塔设定生产任务:info.myCommandList.addCommmand(towerCommand, \{TProduct, 本防御塔ID, 生产任务类型(见下方枚举类型)\})\par
+说明：单个回合中，对每座防御塔，只能添加一个命令。多余命令会被忽略。
+
+\subsubsection{作战兵团}
+移动：info.myCommandList.addCommmand(corpsCommand, \{CMove, 本兵团ID, 方向（Cup / Cdown / Cleft / Cright）\})\par
+兵团攻击兵团：info.myCommandList.addCommmand(corpsCommand, \{CAttackCorps, 本兵团ID, 目标兵团ID\})\par
+兵团攻击防御塔：info.myCommandList.addCommmand(corpsCommand, \{CAttackTower, 本兵团ID, 目标防御塔ID\})\par
+兵团驻扎在己方防御塔：info.myCommandList.addCommmand(corpsCommand, \{CStationTower, 本兵团ID \}) \par
+
+说明：在单个回合中，对于单个作战兵团，仅能添加：若干移动指令（也可以不移动）+一个攻击命令或驻扎己方防御塔的命令（二选一）。添加攻击命令要求剩余的行动力>0，而添加驻扎命令则不必要求行动力>0，即如果移动命令完成后，行动力为0，则该回合无法进攻，但可以驻扎。如果输入的命令无效（不在攻击范围内、移动超出场地范围、攻击命令下达时没有剩余行动力等），会被直接忽略。
+
+\subsubsection{工程兵团：建设者}
+移动：info.myCommandList.addCommmand(corpsCommand, \{CMove, 本兵团ID, 方向编号（Cup / Cdown / Cleft / Cright）\})\par
+修复防御塔：info.myCommandList.addCommmand(corpsCommand, \{CRepair, 本兵团ID\})\par
+修改地形：info.myCommandList.addCommmand(corpsCommand, \{CChangeTerrain, 本兵团ID, 目标地形(见下方枚举类型)\})\par
+说明：仅支持地形“平原-森林”之间的相互转换。在单个回合中，对于单个建设者，仅能添加：若干移动指令（也可以不移动）+修复防御塔/修改地形（二选一。此时需要还有剩余>0的行动力。如果移动命令完成后，行动力为0，则该回合无法修复/修改。如果输入的命令无效，无效命令会被直接忽略。）修改地形需要在该回合结束之后统一起作用。
+\subsubsection{工程兵团：开拓者}
+移动：info.myCommandList.addCommmand(corpsCommand, \{CMove, 本兵团ID, 方向（Cup / Cdown / Cleft / Cright）\})\par
+建立新防御塔：info.myCommandList.addCommmand(corpsCommand, \{ CBuild, 本兵团ID \})\par
+说明：在单个回合中，对于单个开拓者，仅能添加：若干移动指令（也可以不移动）+建立新防御塔（此时需要还有剩余>0的行动力。如果移动命令完成后，行动力为0，则该回合无法新建防御塔。一旦执行了新建防御塔命令后，开拓者即消失。建立新防御塔的条件：该方格是己方领地，该方格尚未建立防御塔。）新建的防御塔需要从下一回合开始可以起作用。
 
 %枚举
 \section{计分规则}
@@ -203,90 +231,51 @@ FC18为四方势力在地图上进行回合制对战的策略游戏，玩家需�
 2.兵团得分：单个兵团得分=4分。兵团得分为所有单个兵团得分之和。\par
 3.击杀分：每当消灭一个敌方的作战兵团/防御塔/俘虏一个敌方的工程兵团时，都可以得5分。\par
 得分相同的按防御塔攻占数、消灭敌方军团数、俘虏敌方军团数排名。若再相同随机决定排名。\par
-另外规定：防御塔最多10座，作战兵团最多10个，工程兵团最多10个，一次最多添加50个命令。(如果己方兵团已经有10个，此时俘虏了一个敌方兵团，则敌方兵团直接消失，而不是转换为我方兵团。防御塔同理。)
 
-\section{你需要做什么}
-\subsection{概述}
-所有玩家的AI都可以从Info中读取当前场上各方势力的兵团、防御塔的信息，并设计算法，并按照统一的接口CommandList给裁判程序回传命令，操控己方势力；在游戏中，选手只需要在ai.cpp文件中的void player\_ai(Info\& info) {  }函数中填写自己的代码，并最终只需要提交ai.cpp文件。
-\begin{lstlisting}[language={C++},title={添加命令有关代码}]  %插入代码块
-    //【FC18】命令列表
-    class CommandList
-    {
-    public:
-      void addCommand(commandType _FC18type, initializer_list<int> _FC18parameters);
-      void removeCommand(int n);  //【FC18】移除第n条命令
-      vector<Command> getCommand() { return m_commands; }  //【FC18】获取所有命令
-    };
-\end{lstlisting}
-
-\subsection{玩家添加命令示例}
-玩家通过info.myCommandList.addCommmand(<命令类型>,<参数列表:参数1,参数2...>)添加命令。
-\subsubsection{防御塔}
-防御塔攻击兵团:info.myCommandList.addCommmand(towerCommand, \{TAttackCorps, 本防御塔ID, 目标兵团ID\})\par
-防御塔设定生产任务:info.myCommandList.addCommmand(towerCommand, \{TProduct, 本防御塔ID, 生产任务类型(见下方枚举类型)\})\par
-\begin{lstlisting}[language={C++},title={生产任务类型}]  %插入代码块
-		//【FC18】防御塔的生产任务类型（P表示product）
-		enum productType
-		{//                                                 生产回报
-			PWarrior = 0,       //生产战士         1star-战士兵团
-			PArcher = 1,       //生产弓箭手      1star-弓箭手兵团
-			PCavalry = 2,       //生产骑兵         1star-骑兵兵团
-			PBuilder = 3,       //生产建造者        1-建造者兵团
-			PExtender = 4,       //生产开拓者        1-开拓者兵团
-			PUpgrade = 5,       //防御塔升级任务      防御塔等级+1（max=8)
-			NOTASK = -1
-		};
-\end{lstlisting}
-说明：新建的兵团需要从下一回合开始可以起作用。
-\subsubsection{作战兵团}
-移动：info.myCommandList.addCommmand(corpsCommand, \{CMove, 本兵团ID, 方向（Cup / Cdown / Cleft / Cright）\})\par
-兵团攻击兵团：info.myCommandList.addCommmand(corpsCommand, \{CAttackCorps, 本兵团ID, 目标兵团ID\})\par
-兵团攻击防御塔：info.myCommandList.addCommmand(corpsCommand, \{CAttackTower, 本兵团ID, 目标防御塔ID\})\par
-兵团驻扎在己方防御塔：info.myCommandList.addCommmand(corpsCommand, \{CStationTower, 本兵团ID \}) \par
-
-说明：所有兵团添加进攻命令之后，之后添加的移动或其他进攻命令均会被忽略。在单个回合中，对于单个作战兵团，仅能添加：若干移动指令（也可以不移动）+一个攻击命令或驻扎己方防御塔的命令（二选一。添加攻击命令需要还有剩余>0的行动力，而添加驻扎命令则不需要。如果移动命令完成后，行动力为0，则该回合无法进攻，但可以驻扎。如果输入的命令无效，例如不在攻击范围内、移动超出场地范围、攻击命令下达时没有剩余行动力等，无效命令会被直接忽略。）
-
-\subsubsection{工程兵团：建造者}
-移动：info.myCommandList.addCommmand(corpsCommand, \{CMove, 本兵团ID, 方向编号（Cup / Cdown / Cleft / Cright）\})\par
-修复防御塔：info.myCommandList.addCommmand(corpsCommand, \{CRepair, 本兵团ID\})\par
-修改地形：info.myCommandList.addCommmand(corpsCommand, \{CChangeTerrain, 本兵团ID, 目标地形(见下方枚举类型)\})\par
-说明：仅支持地形“平原-森林”之间的相互转换。在单个回合中，对于单个建造者，仅能添加：若干移动指令（也可以不移动）+修复防御塔/修改地形（二选一。此时需要还有剩余>0的行动力。如果移动命令完成后，行动力为0，则该回合无法修复/修改。如果输入的命令无效，无效命令会被直接忽略。）\par
-修改地形需要在该回合结束之后统一起作用。如果该回合两个兵团对同一个地形执行了更改，以最后一个传入的更改为准。
-\begin{lstlisting}[language={C++},title={生产任务类型}]  %插入代码块
-		//【FC18】地形的枚举类（TR前缀表示地形）
-		enum terrainType
-		{
-			TRTower = 0,       //防御塔
-			TRPlain = 1,       //平原
-			TRMountain = 2,       //山地A
-			TRForest = 3,       //森林
-			TRSwamp = 4,       //沼泽
-			TRRoad = 5,       //道路
-		};
-\end{lstlisting}
-\subsubsection{工程兵团：开拓者}
-移动：info.myCommandList.addCommmand(corpsCommand, \{CMove, 本兵团ID, 方向（Cup / Cdown / Cleft / Cright）\})\par
-建立新防御塔：info.myCommandList.addCommmand(corpsCommand, \{ CBuild, 本兵团ID \})\par
-说明：在单个回合中，对于单个开拓者，仅能添加：若干移动指令（也可以不移动）+建立新防御塔（此时需要还有剩余>0的行动力。如果移动命令完成后，行动力为0，则该回合无法新建防御塔。一旦执行了新建防御塔命令后，兵团即消失。建立新防御塔的条件：该方格是己方领地，该方格尚未建立防御塔。）\par
-新建的防御塔需要从下一回合开始可以起作用。
-
-\section{规则具体实现逻辑}\label{细则}
-\begin{enumerate}[fullwidth, itemindent=2em, label=(\arabic*)]
-  \item 兵团被攻击时，裁判程序的判定逻辑为：首先判断目标兵团是否驻扎到防御塔。若是，则与防御塔结算（但是，如果进攻发起方是防御塔，服从之前的规则，不存在防御塔与防御塔结算这一说，这次攻击兵团判定失败。防御塔攻击驻扎别人防御塔里的兵团是废命令，被忽略）；若否，则判断，是否是工程兵且被作战兵护卫。然后判断目标兵团是否是工程兵且被作战兵护卫。若是，则与作战兵结算，若否，则直接与目标兵团结算。
-  \item 攻击防御塔命令（防御塔被占领或摧毁的情况）：防御塔所在方格的所有敌方兵团（不允许兵团进入别人防御塔所在方格，因此防御塔中所有兵团都是本防御塔方的兵团），都直接杀死，不管是否驻扎到防御塔。
-  \item 攻击防御塔命令（防御塔被占领的情况）：若发起攻击的兵团与被攻击的防御塔同时生命值减为0，则不会由攻方占领防御塔。这一点，我们与兵团攻击兵团时同时死亡的情况保持一致。
-
-\end{enumerate}
+\section{附录}
+塔相关结算方法如下：
+\begin{equation}
+  f = F_N \cdot \frac{hp}{HP_N} + \Sigma f_b\label{f}
+\end{equation}
+兵团攻击塔时，生命值的结算方式如下：
+\begin{equation}
+  \begin{aligned}
+    hp_{\text{塔}}   & \ -= & \ 30 \cdot k_c \cdot e^{0.04(f_{\text{兵}}-f_{\text{塔}})} & ;                       \\
+    hp_{\text{兵团}} & \ -= & \ 28 \cdot e^{0.04(f_{\text{塔}}-f_{\text{兵}})}           & , \text{当兵团非弓箭手} \\
+    hp_{\text{兵团}} & \ -= & \ 0                                                        & , \text{当兵团为弓箭手} \\
+  \end{aligned}
+  \label{hp1}
+\end{equation}
+塔只能攻击距离为2及以内的兵团。塔攻击兵团时，生命值的结算方式如下：
+\begin{equation}
+  \begin{aligned}
+    hp_{\text{兵团}} & \ -=\ 30 \cdot e^{0.04(f_{\text{塔}}-f_{\text{兵}})}, \text{对于所有兵团种类} \\
+    hp_{\text{塔}}   & \ -=\ 0                                                                       \\
+  \end{aligned}
+  \label{hp2}
+\end{equation}
+兵团相关结算方式如下：
+\begin{equation}
+  f = F_c \cdot \frac{hp}{HP_c} + f_t\label{f2}
+\end{equation}
+兵团只能攻击在攻击范围内的对象，不同兵团的攻击距离$d_c$如表\ref{兵团}所示。兵团B受到兵团A攻击时，生命值的结算方式如下：
+\begin{equation}
+  \begin{aligned}
+    hp_{B} & \ -= & \ 30 \cdot e^{0.04(f_{A}-f_{B})} & ;                        \\
+    hp_{A} & \ -= & \ 28 \cdot e^{0.04(f_{B}-f_{A})} & , \text{当兵团A非弓箭手} \\
+    hp_{A} & \ -= & \ 0                              & , \text{当兵团A为弓箭手} \\
+  \end{aligned}
+  \label{hp2}
+\end{equation}\par
 
 
-\section{相关数据表}
 \begin{table}[htbp]
   \centering
   \caption{塔等级表}
   \label{塔等级表}%
   \begin{tabular}{c|c|c|c}
     \hline
-    等级$N$ & 生产力$W_N$ & 等级战斗力$F_N$ & 等级生命力上限$HP_N$ \bigstrut \\
+    等级$N$ & 生产力$W_N$ & 等级战斗力$F_N$ & 等级生命值上限$HP_N$ \bigstrut \\
     \hline
     1       & 10          & 25              & 100 \bigstrut                  \\
     \hline
@@ -322,7 +311,7 @@ FC18为四方势力在地图上进行回合制对战的策略游戏，玩家需�
     \hline
     法师               & 100 \bigstrut            \\
     \hline
-    建造者             & 40 \bigstrut             \\
+    建设者             & 40 \bigstrut             \\
     \hline
     开拓者             & 40 \bigstrut             \\
     \hline
@@ -348,7 +337,7 @@ FC18为四方势力在地图上进行回合制对战的策略游戏，玩家需�
     \hline
     行动力$M_c$         & 2    & 2      & 4    & 2      & 2 \bigstrut      \\
     \hline
-    生命力上限$HP_c$    & 60   & 50     & 70   & NA     & NA \bigstrut     \\
+    生命值上限$HP_c$    & 60   & 50     & 70   & NA     & NA \bigstrut     \\
     \hline
     满血战斗力$F_c$     & 36   & 30     & 44   & NA     & NA \bigstrut     \\
     \hline
